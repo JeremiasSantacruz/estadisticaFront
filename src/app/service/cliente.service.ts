@@ -1,4 +1,4 @@
-import {inject, Injectable } from '@angular/core';
+import {EventEmitter, inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
@@ -10,12 +10,16 @@ export class ClienteService {
 
   private http = inject(HttpClient);
 
+  clienteEnviado = new EventEmitter<number>();
+
   getData(page: number, size: number): Observable<PaginationResponse> {
     return this.http.get<PaginationResponse>(`${this.apiUrl}/listclientes?page=${page}&size=${size}`);
   }
 
   postData(data: ClientePost): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/crearcliente`, data);
+    let res = this.http.post<any>(`${this.apiUrl}/crearcliente`, data);
+    this.clienteEnviado.emit(1);
+    return res;
   }
 
   getEstadistica(): Observable<any> {
