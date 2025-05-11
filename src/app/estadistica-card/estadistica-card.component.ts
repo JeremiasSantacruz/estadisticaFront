@@ -25,12 +25,19 @@ export class EstadisticaCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.clienteService.getEstadistica()
-      .pipe()
-      .subscribe((estadistica: Estadiistica) => {
-        this.promedio = estadistica.promedio;
-        this.desviacionEstandar = estadistica.desviacionEstandar;
-      });
+     this.clienteService.clienteEnviado.subscribe(index => {
+       this.loadData();
+    });
+     this.loadData();
   }
+
+  loadData(){
+  this.clienteService.getEstadistica()
+    .pipe()
+    .subscribe((estadistica: Estadiistica) => {
+      this.promedio = estadistica.promedio;
+      this.desviacionEstandar = estadistica.desviacionEstandar;
+    });
+}
 
 }

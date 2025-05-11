@@ -28,6 +28,9 @@ export class CrearClienteComponent implements AfterViewInit, OnInit{
   private readonly destroy$ = new Subject<void>();
 
   ngOnInit(): void {
+    this.clienteService.clienteEnviado.subscribe(index => {
+      this.loadData(this.pageIndex, this.pageSize);
+    });
     this.loadData(this.pageIndex, this.pageSize);
   }
 
