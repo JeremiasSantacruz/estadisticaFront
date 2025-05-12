@@ -45,8 +45,10 @@ export class ClienteFormComponent implements OnInit {
   }
 
   openSnackBar(message: string, obj?: any) {
-    console.log(obj.panelClass);
-    this._snackBar.open(message, 'X', obj);
+    if (obj) {
+      this._snackBar.open(message, 'X', obj);
+    }
+    this._snackBar.open(message);
   }
 
   onSubmit() {
