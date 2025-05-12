@@ -8,6 +8,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
 import {ClientePost, ClienteService} from '../service/cliente.service';
 import {Subject} from 'rxjs';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cliente-form',
@@ -31,7 +32,7 @@ export class ClienteFormComponent implements OnInit {
   private clienteService = inject(ClienteService);
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private _snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -43,6 +44,11 @@ export class ClienteFormComponent implements OnInit {
     });
   }
 
+  openSnackBar(message: string, obj?: any) {
+    console.log(obj.panelClass);
+    this._snackBar.open(message, 'X', obj);
+  }
+
   onSubmit() {
     if (this.miFormulario.valid) {
       let post: ClientePost = {
@@ -51,7 +57,15 @@ export class ClienteFormComponent implements OnInit {
         edad: this.miFormulario.value.edad,
         fechaDeNacimiento: this.miFormulario.value.fechaDeNacimiento
       };
-      this.clienteService.postData(post).subscribe()
+      this.clienteService.postData(post).subscribe({
+        next: () => {
+          this.openSnackBar('Cliente creado correctamente');
+        },
+        error: (error) => {
+          this.openSnackBar(error.error.readableMsg, { duration: 2000, panelClass: ['mat-warn'] });
+        }
+      })
+
       this.miFormulario.reset();
     } else {
       console.log('El formulario no es válido');
