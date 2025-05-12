@@ -1,52 +1,48 @@
 <div class="mat-elevation-z8" style="padding: 16px;">
-  <table mat-table [dataSource]="dataSource">
+  <table [dataSource]="dataSource" mat-table>
 
     <!-- Id Columna -->
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> Id</th>
-      <td mat-cell *matCellDef="let element"> {{ element.id }}</td>
+      <th *matHeaderCellDef mat-header-cell> Id</th>
+      <td *matCellDef="let element" mat-cell> {{ element.id }}</td>
     </ng-container>
 
     <!-- Nombre Columna -->
     <ng-container matColumnDef="nombre">
-      <th mat-header-cell *matHeaderCellDef> Nombre</th>
-      <td mat-cell *matCellDef="let element"> {{ element.nombre }}</td>
+      <th *matHeaderCellDef mat-header-cell> Nombre</th>
+      <td *matCellDef="let element" mat-cell> {{ element.nombre }}</td>
     </ng-container>
 
     <!-- Apellido Columna    -->
     <ng-container matColumnDef="apellido">
-      <th mat-header-cell *matHeaderCellDef> Apellido</th>
-      <td mat-cell *matCellDef="let element"> {{ element.apellido }}</td>
+      <th *matHeaderCellDef mat-header-cell> Apellido</th>
+      <td *matCellDef="let element" mat-cell> {{ element.apellido }}</td>
     </ng-container>
 
     <!-- Edad Columna -->
     <ng-container matColumnDef="edad">
-      <th mat-header-cell *matHeaderCellDef> Edad</th>
-      <td mat-cell *matCellDef="let element"> {{ element.edad }}</td>
+      <th *matHeaderCellDef mat-header-cell> Edad</th>
+      <td *matCellDef="let element" mat-cell> {{ element.edad }}</td>
     </ng-container>
 
     <!-- Fecha de Nacimiento Columna    -->
     <ng-container matColumnDef="fechaDeNacimiento">
-      <th mat-header-cell *matHeaderCellDef> Fecha de nacimiento</th>
-      <td mat-cell *matCellDef="let element"> {{ element.fechaDeNacimiento }}</td>
+      <th *matHeaderCellDef mat-header-cell> Fecha de nacimiento</th>
+      <td *matCellDef="let element" mat-cell> {{ element.fechaDeNacimiento }}</td>
     </ng-container>
 
     <!-- Fecha estimada de muerte columna -->
     <ng-container matColumnDef="fechaEstimadaDeMuerte">
-      <th mat-header-cell *matHeaderCellDef> Fecha estimada de muerte</th>
-      <td mat-cell *matCellDef="let element"> {{ element.fechaEstimadaDeMuerte }}</td>
+      <th *matHeaderCellDef mat-header-cell> Fecha estimada de muerte</th>
+      <td *matCellDef="let element" mat-cell> {{ element.fechaEstimadaDeMuerte }}</td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
   </table>
 
   <mat-paginator [length]="totalItems"
-                 [pageSize]="pageSize"
-                 [pageIndex]="pageIndex"
-                 [pageSizeOptions]="[5, 10, 20]"
-                 showFirstLastButtons
-                 aria-label="Select page of cliente"
-                 (page)="handlePageEvent($event)">
+                 [pageSizeOptions]="[5, 10, 25]"
+                 [pageSize]="pageSize">
   </mat-paginator>
 </div>

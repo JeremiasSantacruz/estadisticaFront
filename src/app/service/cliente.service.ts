@@ -1,6 +1,6 @@
-import {EventEmitter, inject, Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, Subject, tap} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +10,17 @@ export class ClienteService {
 
   private http = inject(HttpClient);
 
-  clienteEnviado = new EventEmitter<number>();
+  private clienteEnviadoSubject = new Subject<number>();
+  clienteEnviado = this.clienteEnviadoSubject.asObservable();
 
   getData(page: number, size: number): Observable<PaginationResponse> {
     return this.http.get<PaginationResponse>(`${this.apiUrl}/listclientes?page=${page}&size=${size}`);
   }
 
   postData(data: ClientePost): Observable<any> {
-    let res = this.http.post<any>(`${this.apiUrl}/crearcliente`, data);
-    this.clienteEnviado.emit(1);
-    return res;
+    return this.http.post<any>(`${this.apiUrl}/crearcliente`, data).pipe(tap(() => {
+      this.clienteEnviadoSubject.next(1);
+    }));
   }
 
   getEstadistica(): Observable<any> {
@@ -28,6 +29,7 @@ export class ClienteService {
 
 
 }
+
 interface Pageable {
   pageNumber: number;
   pageSize: number;

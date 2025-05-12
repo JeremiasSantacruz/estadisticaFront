@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
 import {CrearClienteComponent} from './crear-cliente/crear-cliente.component';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {ClienteFormComponent} from './cliente-form/cliente-form.component';

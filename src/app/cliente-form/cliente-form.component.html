@@ -1,53 +1,56 @@
-<form [formGroup]="miFormulario" (ngSubmit)="onSubmit()" style="padding-left: 30px">
+<form (ngSubmit)="onSubmit()" [formGroup]="miFormulario" style="padding-left: 30px">
   <p>
-  <mat-form-field appearance="outline">
-    <mat-label>Nombre</mat-label>
-    <input matInput type="text" formControlName="nombre">
-    <mat-error *ngIf="miFormulario.get('nombre')?.invalid && (miFormulario.get('nombre')?.dirty || miFormulario.get('nombre')?.touched)">
-      <mat-error *ngIf="miFormulario.get('nombre')?.errors?.['required']">
-        El nombre es <strong>requerido</strong>.
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input formControlName="nombre" matInput type="text">
+      <mat-error
+        *ngIf="miFormulario.get('nombre')?.invalid && (miFormulario.get('nombre')?.dirty || miFormulario.get('nombre')?.touched)">
+        <mat-error *ngIf="miFormulario.get('nombre')?.errors?.['required']">
+          El nombre es <strong>requerido</strong>.
+        </mat-error>
       </mat-error>
-    </mat-error>
-  </mat-form-field>
+    </mat-form-field>
   </p>
 
   <p>
-  <mat-form-field appearance="outline">
-    <mat-label>Apellido</mat-label>
-    <input matInput type="text" formControlName="apellido">
-    <mat-error *ngIf="miFormulario.get('apellido')?.invalid && (miFormulario.get('apellido')?.dirty || miFormulario.get('apellido')?.touched)">
-      <mat-error *ngIf="miFormulario.get('apellido')?.errors?.['required']">
-        El apellido es <strong>requerido</strong>.
+    <mat-form-field appearance="outline">
+      <mat-label>Apellido</mat-label>
+      <input formControlName="apellido" matInput type="text">
+      <mat-error
+        *ngIf="miFormulario.get('apellido')?.invalid && (miFormulario.get('apellido')?.dirty || miFormulario.get('apellido')?.touched)">
+        <mat-error *ngIf="miFormulario.get('apellido')?.errors?.['required']">
+          El apellido es <strong>requerido</strong>.
+        </mat-error>
       </mat-error>
-    </mat-error>
-  </mat-form-field>
+    </mat-form-field>
   </p>
 
   <p>
-  <mat-form-field appearance="outline">
-    <mat-label>Edad</mat-label>
-    <input matInput type="number" formControlName="edad">
-    <mat-error *ngIf="miFormulario.get('edad')?.invalid && (miFormulario.get('edad')?.dirty || miFormulario.get('edad')?.touched)">
-      <mat-error *ngIf="miFormulario.get('edad')?.errors?.['required']">
-        La edad es <strong>requerida</strong>.
+    <mat-form-field appearance="outline">
+      <mat-label>Edad</mat-label>
+      <input formControlName="edad" matInput type="number">
+      <mat-error
+        *ngIf="miFormulario.get('edad')?.invalid && (miFormulario.get('edad')?.dirty || miFormulario.get('edad')?.touched)">
+        <mat-error *ngIf="miFormulario.get('edad')?.errors?.['required']">
+          La edad es <strong>requerida</strong>.
+        </mat-error>
+        <mat-error *ngIf="miFormulario.get('edad')?.errors?.['min']">
+          La edad debe ser mayor o igual a <strong>0</strong>.
+        </mat-error>
       </mat-error>
-      <mat-error *ngIf="miFormulario.get('edad')?.errors?.['min']">
-        La edad debe ser mayor o igual a <strong>0</strong>.
-      </mat-error>
-    </mat-error>
-  </mat-form-field>
+    </mat-form-field>
   </p>
 
   <p>
-  <mat-form-field appearance="outline">
-    <mat-label>Fecha de Nacimiento</mat-label>
-    <input matInput [matDatepicker]="picker" [max]="maxDate" formControlName="fechaDeNacimiento">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha de Nacimiento</mat-label>
+      <input [matDatepicker]="picker" [max]="maxDate" formControlName="fechaDeNacimiento" matInput>
+      <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
   </p>
 
   <div>
-    <button mat-raised-button color="primary" type="submit" [disabled]="!miFormulario.valid">Enviar</button>
+    <button [disabled]="!miFormulario.valid" color="primary" mat-raised-button type="submit">Enviar</button>
   </div>
 </form>

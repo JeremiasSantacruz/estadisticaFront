@@ -11,7 +11,7 @@ env:
   SVC_ACCOUNT: ${{ secrets.GCP_SVC_ACCOUNT }}
   GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/${{ secrets.GCP_SVC_ACCOUNT }}.json
   SVC_ACCOUNT_EMAIL: ${{ secrets.GCP_SVC_ACCOUNT }}@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com
-  GAR_LOCATION:  ${{ vars.GCP_REGION }}
+  GAR_LOCATION: ${{ vars.GCP_REGION }}
   GAR_REPOSITORY: ${{ vars.GCP_NAME }}
   CLOUD_RUN_SERVICE_NAME: 'estadistica-front' # Ej: my-awesome-app
   CLOUD_RUN_REGION: ${{ vars.GCP_REGION }}
@@ -40,7 +40,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-    # Authenticate with Google Cloud
+      # Authenticate with Google Cloud
       - name: Authenticate to Google Cloud
         run: |
           echo "${{ secrets.GCP_SVC_ACCOUNT_CREDS }}" | base64 --decode > $GOOGLE_APPLICATION_CREDENTIALS

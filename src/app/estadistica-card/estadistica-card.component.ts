@@ -3,6 +3,7 @@ import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/mat
 import {MatDivider} from '@angular/material/divider';
 import {MatIcon} from '@angular/material/icon';
 import {ClienteService, Estadiistica} from '../service/cliente.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-estadistica-card',
@@ -21,23 +22,25 @@ export class EstadisticaCardComponent implements OnInit {
   promedio: number = 0;
   desviacionEstandar: number = 0;
   private clienteService = inject(ClienteService);
+  private clienteEnviado!: Subscription;
 
-  constructor() { }
-
-  ngOnInit(): void {
-     this.clienteService.clienteEnviado.subscribe(index => {
-       this.loadData();
-    });
-     this.loadData();
+  constructor() {
   }
 
-  loadData(){
-  this.clienteService.getEstadistica()
-    .pipe()
-    .subscribe((estadistica: Estadiistica) => {
-      this.promedio = estadistica.promedio;
-      this.desviacionEstandar = estadistica.desviacionEstandar;
+  ngOnInit(): void {
+    this.clienteEnviado = this.clienteService.clienteEnviado.subscribe(index => {
+      this.loadData();
     });
-}
+    this.loadData();
+  }
+
+  loadData() {
+    this.clienteService.getEstadistica()
+      .pipe()
+      .subscribe((estadistica: Estadiistica) => {
+        this.promedio = estadistica.promedio;
+        this.desviacionEstandar = estadistica.desviacionEstandar;
+      });
+  }
 
 }
