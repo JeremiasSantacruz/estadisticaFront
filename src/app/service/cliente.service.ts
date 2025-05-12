@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class ClienteService {
-  private apiUrl = 'http://localhost:8080'; // Ejemplo de una API pública
+  private apiUrl = 'https://estadistica-backend-238654766895.us-central1.run.app/'; // Ejemplo de una API pública
 
   private http = inject(HttpClient);
 
