@@ -11,4 +11,4 @@ FROM nginx:alpine
 COPY /nginx.conf  /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist/estadistica-front/browser usr/share/nginx/html
 EXPOSE 8080
-CMD ["npx", "serve", "-p", "8080", "."]
+CMD ["nginx", "-g", "daemon off;"]
