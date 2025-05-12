@@ -6,7 +6,7 @@ import {Observable, Subject, tap} from 'rxjs';
   providedIn: 'root'
 })
 export class ClienteService {
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = 'https://estadistica-backend-238654766895.us-central1.run.app';
 
   private http = inject(HttpClient);
 
