@@ -1,28 +1,13 @@
-### STAGE 1:BUILD ###
-# Defining a node image to be used as giving it an alias of "build"
-# Which version of Node image to use depends on project dependencies
-# This is needed to build and compile our code
-# while generating the docker image
-FROM node:18.19-alpine AS build
-# Create a Virtual directory inside the docker image
-WORKDIR /dist/src/app
-# Copy files to virtual directory
-# COPY package.json package-lock.json ./
-# Run command in Virtual directory
-RUN npm cache clean --force
-# Copy files from local machine to virtual directory in docker image
-COPY . .
+# Primera etapa: construir la aplicación Angular
+FROM node:latest AS builder
+WORKDIR /app
+COPY package.json package-lock.json ./
 RUN npm install
-RUN npm run build --prod
+COPY . .
+RUN npm run build --configuration=production
 
-
-### STAGE 2:RUN ###
-# Defining nginx image to be used
-FROM nginx:latest AS ngi
-# Copying compiled code and nginx config to different folder
-# NOTE: This path may change according to your project's output folder
-COPY --from=build /dist/src/app/dist/estadistica-front /usr/share/nginx/html
-COPY /nginx.conf  /etc/nginx/conf.d/default.conf
-# Exposing a port, here it means that inside the container
-# the app will be using Port 80 while running
+# Segunda etapa: servir con Nginx
+FROM nginx:alpine
+COPY --from=builder /app/dist/estadistica-front usr/share/nginx/html
 EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
