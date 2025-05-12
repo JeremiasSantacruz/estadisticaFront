@@ -13,7 +13,7 @@ env:
   SVC_ACCOUNT_EMAIL: ${{ secrets.GCP_SVC_ACCOUNT }}@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com
   GAR_LOCATION:  ${{ vars.GCP_REGION }}
   GAR_REPOSITORY: ${{ vars.GCP_NAME }}
-  CLOUD_RUN_SERVICE_NAME: 'estadistica' # Ej: my-awesome-app
+  CLOUD_RUN_SERVICE_NAME: 'estadistica-front' # Ej: my-awesome-app
   CLOUD_RUN_REGION: ${{ vars.GCP_REGION }}
   CR_UI_IMAGE_NAME: ${{ vars.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ vars.GCP_NAME }}:${{ github.sha }}
 
